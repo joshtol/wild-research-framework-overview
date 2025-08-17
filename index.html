@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wild Research Framework | Queen-Drone AI Architecture</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --ocean-deep: #0a3d62;
+            --ocean-mid: #1e5f8e;
+            --ocean-light: #4a90e2;
+            --coral: #ff6b6b;
+            --success: #27ae60;
+            --text-dark: #2c3e50;
+            --text-light: #5a6c7d;
+            --white: #ffffff;
+            --gray-light: #f8f9fa;
+            --accent: #00b4d8;
+            --law-purple: #6c5ce7;
+            --warning: #f39c12;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--white);
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--ocean-deep) 0%, var(--ocean-mid) 100%);
+            color: var(--white);
+            padding: 100px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 80%, transparent 30%, rgba(255, 255, 255, 0.1) 70%);
+            pointer-events: none;
+        }
+
+        .header h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 300;
+            letter-spacing: -1px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .header .subtitle {
+            font-size: 1.25rem;
+            opacity: 0.95;
+            font-weight: 300;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+
+        .version-badge {
+            display: inline-block;
+            background: var(--coral);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            position: relative;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Lead Section */
+        .lead {
+            background: var(--gray-light);
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .lead-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .lead h2 {
+            color: var(--ocean-deep);
+            font-size: 2.25rem;
+            font-weight: 400;
+            margin-bottom: 25px;
+        }
+
+        .lead p {
+            font-size: 1.125rem;
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            color: var(--ocean-mid);
+            font-weight: 500;
+        }
+
+        /* Section */
+        .section {
+            margin: 80px 0;
+        }
+
+        .section-title {
+            color: var(--ocean-deep);
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 35px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--ocean-light);
+        }
+
+        /* Architecture Overview */
+        .architecture-visual {
+            background: var(--gray-light);
+            border-radius: 12px;
+            padding: 60px 40px;
+            margin: 50px 0;
+            position: relative;
+        }
+
+        .queen-drone-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .queen-box {
+            background: linear-gradient(135deg, var(--law-purple), var(--ocean-mid));
+            color: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(108, 92, 231, 0.2);
+        }
+
+        .queen-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .queen-box p {
+            font-size: 1rem;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        .orchestrator-layer {
+            width: 100%;
+            max-width: 700px;
+            background: var(--white);
+            border: 2px solid var(--ocean-light);
+            border-radius: 12px;
+            padding: 30px;
+            position: relative;
+        }
+
+        .orchestrator-layer h4 {
+            color: var(--ocean-mid);
+            font-size: 1.25rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .drone-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin-top: 40px;
+        }
+
+        .drone-card {
+            background: var(--white);
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .drone-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(30, 95, 142, 0.15);
+            border-color: var(--ocean-light);
+        }
+
+        .drone-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .drone-name {
+            font-size: 0.875rem;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .lora-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--coral);
+            color: var(--white);
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+        
+        .sub-description {
+            text-align: center; 
+            color: var(--text-light); 
+            margin-bottom: 25px;
+        }
+
+        /* Process Flow */
+        .process-container {
+            margin: 50px 0;
+        }
+
+        .process-step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 40px;
+            padding-left: 60px;
+            position: relative;
+        }
+
+        .process-step::before {
+            content: attr(data-step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 45px;
+            height: 45px;
+            background: var(--ocean-light);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.25rem;
+        }
+
+        .process-step.optional::before {
+            background: var(--warning);
+        }
+
+        .process-step::after {
+            content: '';
+            position: absolute;
+            left: 22px;
+            top: 45px;
+            width: 2px;
+            height: calc(100% + 20px);
+            background: #e0e0e0;
+        }
+
+        .process-step:last-child::after {
+            display: none;
+        }
+
+        .step-content h4 {
+            color: var(--ocean-deep);
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+        
+        .step-content h4 .optional-tag {
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: var(--warning);
+            margin-left: 8px;
+        }
+
+        .step-content p {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* Tech Stack */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .tech-card {
+            background: var(--white);
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .tech-card:hover {
+            box-shadow: 0 8px 24px rgba(10, 61, 98, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .tech-card h4 {
+            color: var(--ocean-mid);
+            font-size: 1.125rem;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .tech-card ul {
+            list-style: none;
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .tech-card li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .tech-card li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--ocean-light);
+        }
+
+        /* Constitutional Laws */
+        .laws-container {
+            background: linear-gradient(135deg, rgba(108, 92, 231, 0.05), rgba(74, 144, 226, 0.05));
+            border-radius: 12px;
+            padding: 40px;
+            margin: 40px 0;
+        }
+
+        .laws-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .law-item {
+            background: var(--white);
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 3px solid var(--law-purple);
+            font-size: 0.875rem;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+        }
+
+        .law-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(108, 92, 231, 0.15);
+        }
+
+        .law-number {
+            color: var(--law-purple);
+            font-weight: 600;
+            margin-right: 5px;
+        }
+
+        /* Case Study */
+        .case-study {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-left: 4px solid var(--ocean-light);
+            border-radius: 8px;
+            padding: 40px;
+            margin: 50px 0;
+        }
+
+        .case-study h3 {
+            color: var(--ocean-deep);
+            font-size: 1.75rem;
+            margin-bottom: 25px;
+            font-weight: 400;
+        }
+
+        .case-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .metric {
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            color: var(--coral);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .metric-label {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* CTA */
+        .cta {
+            background: var(--ocean-deep);
+            color: var(--white);
+            padding: 80px 20px;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        .cta h2 {
+            font-size: 2.25rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            font-size: 1.125rem;
+            margin-bottom: 35px;
+            opacity: 0.95;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button.primary {
+            background: var(--coral);
+            color: var(--white);
+        }
+
+        .cta-button.primary:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .cta-button.secondary:hover {
+            background: var(--white);
+            color: var(--ocean-deep);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 60px 20px;
+            }
+
+            .section {
+                margin: 60px 0;
+            }
+
+            .drone-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+
+            .process-step {
+                padding-left: 50px;
+            }
+
+            .process-step::before {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>Wild Research Framework</h1>
+        <p class="subtitle">A Revolutionary Queen-Drone AI Swarm Architecture with Constitutional Governance</p>
+        <span class="version-badge">Version 2.1.0 | QUEEN Compliant</span>
+    </header>
+
+    <div class="lead">
+        <div class="lead-content">
+            <h2>Autonomous Intelligence at Scale</h2>
+            <p>Traditional AI agents struggle with complex, multi-faceted tasks. They lack specialization, waste API calls, and often produce inconsistent results.</p>
+            <p><span class="highlight">The Wild Research Framework solves this</span> through a sophisticated Queen-Drone architecture where a master AI orchestrates a swarm of dynamically specialized agents, each equipped with precisely the right LoRA adapter for their specific micro-task.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <section class="section">
+            <h2 class="section-title">The Architecture</h2>
+            
+            <div class="architecture-visual">
+                <div class="queen-drone-diagram">
+                    <div class="queen-box">
+                        <h3>👑 Queen Agent</h3>
+                        <p>Powered by a flagship LLM. Decomposes complex objectives into micro-tasks, manages state, and synthesizes final outputs.</p>
+                    </div>
+                    
+                    <div class="orchestrator-layer">
+                        <h4>🎯 Intelligent Orchestrator</h4>
+                        <p class="sub-description">
+                            RESTful API • Dynamic task batching • Docker containerization • Firestore persistence<br>
+                            Facilitates Queen-to-Drone and inter-Drone communication for complex workflows.
+                        </p>
+                        
+                        <div class="drone-grid">
+                            <div class="drone-card">
+                                <span class="lora-badge">LoRA</span>
+                                <div class="drone-icon">🔬</div>
+                                <div class="drone-name">Research Drone</div>
+                            </div>
+                            <div class="drone-card">
+                                <span class="lora-badge">LoRA</span>
+                                <div class="drone-icon">💻</div>
+                                <div class="drone-name">Code Drone</div>
+                            </div>
+                            <div class="drone-card">
+                                <span class="lora-badge">LoRA</span>
+                                <div class="drone-icon">📊</div>
+                                <div class="drone-name">Analysis Drone</div>
+                            </div>
+                            <div class="drone-card">
+                                <span class="lora-badge">LoRA</span>
+                                <div class="drone-icon">✍️</div>
+                                <div class="drone-name">Content Drone</div>
+                            </div>
+                            <div class="drone-card">
+                                <span class="lora-badge">LoRA</span>
+                                <div class="drone-icon">🎨</div>
+                                <div class="drone-name">Design Drone</div>
+                            </div>
+                            <div class="drone-card">
+                                <span class="lora-badge">LoRA</span>
+                                <div class="drone-icon">✅</div>
+                                <div class="drone-name">QA Drone</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">How It Works</h2>
+            
+            <div class="process-container">
+                <div class="process-step" data-step="1">
+                    <div class="step-content">
+                        <h4>Human Provides Objective</h4>
+                        <p>A single, high-level goal is submitted through the RESTful API. The system's security layer performs input sanitization to prevent prompt injection attacks.</p>
+                    </div>
+                </div>
+                
+                <div class="process-step" data-step="2">
+                    <div class="step-content">
+                        <h4>Queen Decomposes Task</h4>
+                        <p>The Queen agent analyzes the objective and creates a detailed execution plan, breaking it into dozens of micro-tasks with clear dependencies and required specializations.</p>
+                    </div>
+                </div>
+
+                <div class="process-step optional" data-step="!">
+                    <div class="step-content">
+                        <h4>Human-in-the-Loop Intervention<span class="optional-tag">Optional</span></h4>
+                        <p>For high-stakes tasks, the system can be configured to require human approval of the Queen's plan. This provides a critical checkpoint for cost control and safety before execution.</p>
+                    </div>
+                </div>
+                
+                <div class="process-step" data-step="3">
+                    <div class="step-content">
+                        <h4>Orchestrator Batches & Dispatches</h4>
+                        <p>The orchestrator intelligently groups related tasks, dynamically spawns specialized drone agents, and manages parallel execution for maximum efficiency.</p>
+                    </div>
+                </div>
+                
+                <div class="process-step" data-step="4">
+                    <div class="step-content">
+                        <h4>Drones Execute in Parallel</h4>
+                        <p>Each drone focuses on its task, working within strict context boundaries. The orchestrator provides advanced error handling and recovery, retrying or rerouting failed tasks to ensure process integrity.</p>
+                    </div>
+                </div>
+                
+                <div class="process-step" data-step="5">
+                    <div class="step-content">
+                        <h4>Queen Synthesizes Results</h4>
+                        <p>Structured, audited outputs flow back to the Queen, which validates, integrates, and synthesizes them into a cohesive, production-ready deliverable.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Technology Stack</h2>
+            
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h4>🐳 Containerization & Orchestration</h4>
+                    <ul>
+                        <li>Docker for containerization</li>
+                        <li>Docker Compose for multi-service orchestration</li>
+                        <li>Air for hot-reload development</li>
+                        <li>Docker MCP for model context</li>
+                    </ul>
+                </div>
+                
+                <div class="tech-card">
+                    <h4>🧠 AI & Models</h4>
+                    <ul>
+                        <li>Designed for model agnosticism</li>
+                        <li>Currently optimized for:</li>
+                        <li>- Claude Sonnet 4.0 (Queen)</li>
+                        <li>- Gemma 3 base models (Drones)</li>
+                        <li>Custom LoRA adapters library</li>
+                    </ul>
+                </div>
+                
+                <div class="tech-card">
+                    <h4>🔧 Core Technologies</h4>
+                    <ul>
+                        <li>Go 1.24+ for systems</li>
+                        <li>Python for AI orchestration</li>
+                        <li>RESTful API architecture</li>
+                        <li>Firestore for persistence</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">QUEEN Constitutional Laws</h2>
+            <p style="margin-bottom: 15px; color: var(--text-light);">
+                The system operates under 20 immutable constitutional laws that ensure consistency and reliability.
+            </p>
+            <p style="margin-bottom: 30px; color: var(--text-light);">
+                <strong>Enhanced Constitutional Guardrails:</strong> As the system's autonomy grows, we are enhancing these laws with programmatic guardrails. This isn't just a list of principles; it's an active governance layer where dedicated QA Drones can validate the outputs of others, ensuring compliance and preventing agent drift. This is crucial for maintaining trust and safety in a fully autonomous system.
+            </p>
+            
+            <div class="laws-container">
+                <div class="laws-grid">
+                    <div class="law-item"><span class="law-number">I.</span> System Protection</div>
+                    <div class="law-item"><span class="law-number">II.</span> API-First Architecture</div>
+                    <div class="law-item"><span class="law-number">III.</span> Agent Compliance</div>
+                    <div class="law-item"><span class="law-number">IV.</span> Constitutional Immutability</div>
+                    <div class="law-item"><span class="law-number">V.</span> Dashboard Sync</div>
+                    <div class="law-item"><span class="law-number">VI.</span> Data Integrity</div>
+                    <div class="law-item"><span class="law-number">VII.</span> Performance Monitoring</div>
+                    <div class="law-item"><span class="law-number">VIII.</span> Quality Assurance</div>
+                    <div class="law-item"><span class="law-number">IX.</span> AI Integration</div>
+                    <div class="law-item"><span class="law-number">X.</span> Intelligent Caching</div>
+                    <div class="law-item"><span class="law-number">XI.</span> Real-time Tracking</div>
+                    <div class="law-item"><span class="law-number">XII.</span> Data Migration</div>
+                    <div class="law-item"><span class="law-number">XIII.</span> No Duplicates</div>
+                    <div class="law-item"><span class="law-number">XIV.</span> Single Canister/Topic</div>
+                    <div class="law-item"><span class="law-number">XV.</span> Verification First</div>
+                    <div class="law-item"><span class="law-number">XVI.</span> Clean Maintenance</div>
+                    <div class="law-item"><span class="law-number">XVII.</span> Multi-Dev Access</div>
+                    <div class="law-item"><span class="law-number">XVIII.</span> Research Template</div>
+                    <div class="law-item"><span class="law-number">XIX.</span> Immutable IDs</div>
+                    <div class="law-item"><span class="law-number">XX.</span> Dev Cycle Methodology</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px;">
+                <h4 style="color: var(--ocean-deep); font-weight: 500; font-size: 1.25rem; margin-bottom: 15px;">Security & Auditing</h4>
+                <p style="color: var(--text-light); margin-bottom: 15px;"><strong>Input Sanitization & Prompt Security:</strong> All incoming objectives are processed through a security layer to neutralize potential prompt injection attacks, safeguarding the system's operational integrity from malicious inputs.</p>
+                <p style="color: var(--text-light);"><strong>Detailed Auditing & Logging:</strong> Every action—from the Queen's initial plan to each drone's final output—is meticulously logged. This creates a transparent and immutable audit trail, crucial for debugging, performance analysis, and ensuring accountability.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="case-study">
+                <h3>Proven in Production: The Caribbean Diving Encyclopedia</h3>
+                <p style="margin-bottom: 30px;">
+                    To validate the architecture, I challenged the system with a complex task in a domain I knew nothing about: 
+                    "Build a comprehensive, expert-level diving guide for the Caribbean."
+                </p>
+                
+                <div class="case-metrics">
+                    <div class="metric"><span class="metric-value">0</span><span class="metric-label">Domain expertise required</span></div>
+                    <div class="metric"><span class="metric-value">6</span><span class="metric-label">Specialized drones deployed</span></div>
+                    <div class="metric"><span class="metric-value">70%</span><span class="metric-label">API cost reduction</span></div>
+                    <div class="metric"><span class="metric-value">100%</span><span class="metric-label">Expert validation passed</span></div>
+                </div>
+                
+                <p style="margin-top: 30px; color: var(--text-light);">
+                    <strong>The Result:</strong> A production-ready, professionally written encyclopedia covering marine biology, 
+                    conservation efforts, diving sites, and safety protocols. The content was validated by an experienced diver 
+                    and deployed directly to GitHub Pages—all from a single prompt.
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Key Innovations & Roadmap</h2>
+            
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h4>🎯 Dynamic Specialization</h4>
+                    <p style="color: var(--text-light); margin-top: 10px;">LoRA adapters are loaded on-demand, creating hyper-specialized agents for each task, then discarded to free resources.</p>
+                </div>
+                <div class="tech-card">
+                    <h4>⚡ Intelligent Batching</h4>
+                    <p style="color: var(--text-light); margin-top: 10px;">Related tasks are dynamically grouped, reducing redundant API calls by up to 70% and improving overall efficiency.</p>
+                </div>
+                <div class="tech-card">
+                    <h4>🔒 Compartmentalized Intelligence</h4>
+                    <p style="color: var(--text-light); margin-top: 10px;">Each drone operates within strict context boundaries, ensuring focused, high-quality outputs without scope creep.</p>
+                </div>
+                <div class="tech-card">
+                    <h4>🧩 Drone SDK (Coming Soon)</h4>
+                    <p style="color: var(--text-light); margin-top: 10px;">A planned SDK will empower developers to rapidly create, train, and register new drones, fostering a rich ecosystem of custom specializations.</p>
+                </div>
+                <div class="tech-card">
+                    <h4>🚀 Future Scalability: Kubernetes</h4>
+                    <p style="color: var(--text-light); margin-top: 10px;">We are architecting for a future migration to Kubernetes to enable dynamic, auto-scaling of drone instances for enterprise-level workloads.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="cta">
+        <h2>Ready to Build at the Speed of Thought?</h2>
+        <p>Let's discuss how the Wild Research Framework can transform your AI development pipeline.</p>
+        <div class="cta-buttons">
+            <a href="https://www.linkedin.com/in/joshuatollette/" class="cta-button primary">Connect on LinkedIn</a>
+            <a href="https://github.com/joshtol" class="cta-button secondary">View on GitHub</a>
+        </div>
+    </div>
+</body>
+</html>
