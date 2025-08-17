@@ -4,7 +4,7 @@
 
 **This repository contains the interactive architectural overview for the Wild Research Framework.** The backend source code is private but is available for review upon request.
 
-[**➡️ Explore the Interactive Architecture Overview**](https://www.google.com/search?q=https://joshtol.github.io/wild-research-framework-overview/)
+[**➡️ Explore the Interactive Architecture Overview**](https://joshtol.github.io/wild-research-framework-overview/)
 
 ## **The Problem: Monolithic AI is Inefficient**
 
